@@ -77,6 +77,7 @@ px4_add_romfs_files(
 	4005_gz_x500_vision
 	4006_gz_px4vision
 	4007_gz_sunray_150_vision
+	4051_gz_mujoco_uav_delta
 	4008_gz_advanced_plane
 	4009_gz_r1_rover
 	4010_gz_x500_mono_cam

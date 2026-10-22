@@ -1,0 +1,43 @@
+#!/bin/sh
+# @name MuJoCo UAV Delta (direct SITE wrench)
+# @type Quadrotor
+. ${R}etc/init.d/rc.mc_defaults
+PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=mujoco_uav_delta}
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=mujoco_uav_delta}
+# The source MuJoCo scene is an airborne initial condition and the Delta arm
+# extends below the UAV. Keep the complete model clear of the ground when the
+# normal `make px4_sitl gz_mujoco_uav_delta` entry point is used.
+PX4_GZ_MODEL_POSE=${PX4_GZ_MODEL_POSE:=0,0,2.0,0,0,0}
+param set-default SIM_GZ_EN 1
+param set-default CA_AIRFRAME 0
+param set-default CA_ROTOR_COUNT 4
+# MuJoCo FLU -> PX4 FRD: (x,y,z) -> (x,-y,-z).
+# PX4 moment = position x thrust - KM*thrust_axis; KM=-moment_FLU/0.075.
+param set-default CA_ROTOR0_PX 0.1414
+param set-default CA_ROTOR0_PY -0.1414
+param set-default CA_ROTOR0_KM 0.0230666667
+param set-default CA_ROTOR1_PX 0.1414
+param set-default CA_ROTOR1_PY 0.1414
+param set-default CA_ROTOR1_KM -0.0230666667
+param set-default CA_ROTOR2_PX -0.1414
+param set-default CA_ROTOR2_PY 0.1414
+param set-default CA_ROTOR2_KM 0.0230666667
+param set-default CA_ROTOR3_PX -0.1414
+param set-default CA_ROTOR3_PY -0.1414
+param set-default CA_ROTOR3_KM -0.0230666667
+param set-default SIM_GZ_EC_FUNC1 101
+param set-default SIM_GZ_EC_FUNC2 102
+param set-default SIM_GZ_EC_FUNC3 103
+param set-default SIM_GZ_EC_FUNC4 104
+# ESC interface engineering units are source ctrl, not rotor speed.
+# normalized u in [0,1] -> velocity field 130*u -> source ctrl.
+param set-default SIM_GZ_EC_MIN1 0
+param set-default SIM_GZ_EC_MIN2 0
+param set-default SIM_GZ_EC_MIN3 0
+param set-default SIM_GZ_EC_MIN4 0
+param set-default SIM_GZ_EC_MAX1 130
+param set-default SIM_GZ_EC_MAX2 130
+param set-default SIM_GZ_EC_MAX3 130
+param set-default SIM_GZ_EC_MAX4 130
+param set-default MPC_THR_HOVER 0.566163
