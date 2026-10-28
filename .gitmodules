@@ -78,7 +78,7 @@
 	branch = px4-release/3
 [submodule "Tools/simulation/gz"]
 	path = Tools/simulation/gz
-	url = https://github.com/Zang153/PX4-gazebo-models.git
+	url = git@github.com:liyixin135/PX4-gazebo-models.git
 	branch = pc2-dev
 [submodule "boards/modalai/voxl2/libfc-sensor-api"]
 	path = boards/modalai/voxl2/libfc-sensor-api
